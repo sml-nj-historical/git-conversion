@@ -126,3 +126,6 @@ gitk: ml-lpt-git
 # tuned for very large repositories.
 gc: ml-lpt-git
 	cd ml-lpt-git; time git -c pack.threads=1 repack -AdF --window=1250 --depth=250
+
+ship:
+	cd ml-lpt-git && git remote add origin git@github.com:sml-nj/ml-lpt.git && git push -u origin master && git push --tags

@@ -4,7 +4,7 @@ Tag-Name: git-conversion
 
 Marks the spot at which this repository was converted from Subversion to git.
 
-[[This repository was converted from Subversion to git on 2019-04-07
+[[This repository was converted from Subversion to git on 2019-04-08
 by Kartik Singhal <ks@cs.uchicago.edu>.  Here and elsewhere, conversion
 notes are enclosed in double square brackets. Junk commits generated
 by cvs2svn have been removed, commit references have been mapped into
@@ -14,9 +14,15 @@ EOF
 
 =L edit
 
-# gitify
+tag emptycommit-141 rename svn-reorg
 
-# take care of file permissions reported my make headcompare
-# TODO take care of extra gitignores
+:1235 setperm 100755 ml-antlr/build.sh
+:1235 setperm 100755 ml-ulex/build.sh
+
+# manually edit for wspace, crashes here
 
 # make gc
+
+# setup the github repo
+
+# make ship

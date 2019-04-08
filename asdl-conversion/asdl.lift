@@ -17,6 +17,6 @@ edit
 tag emptycommit-4 rename svn-add-src
 tag emptycommit-29 rename svn-ignorecm
 
-# remove generated gitignore
+# setup the github repo
 
-# make gc
+# make ship
