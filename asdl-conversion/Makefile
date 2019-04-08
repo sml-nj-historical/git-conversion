@@ -53,6 +53,8 @@ REPOSURGEON = reposurgeon
 
 default: asdl-git
 
+all: asdl-git rmignore gc
+
 # Build the converted repo from the second-stage fast-import stream
 asdl-git: asdl.fi
 	rm -fr asdl-git; $(REPOSURGEON) 'read <asdl.fi' 'prefer git' 'rebuild asdl-git'
@@ -126,3 +128,9 @@ gitk: asdl-git
 # tuned for very large repositories.
 gc: asdl-git
 	cd asdl-git; time git -c pack.threads=1 repack -AdF --window=1250 --depth=250
+
+rmignore:
+	cd asdl-git && git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch .gitignore path/to/other/.gitignore' --prune-empty --tag-name-filter cat -- --all && cd -
+
+ship:
+	cd asdl-git && git remote add origin git@github.com:sml-nj/asdl.git && git push -u origin master && git push --tags

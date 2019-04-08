@@ -4,7 +4,7 @@ Tag-Name: git-conversion
 
 Marks the spot at which this repository was converted from Subversion to git.
 
-[[This repository was converted from Subversion to git on 2019-04-06
+[[This repository was converted from Subversion to git on 2019-04-08
 by Kartik Singhal <ks@cs.uchicago.edu>.  Here and elsewhere, conversion
 notes are enclosed in double square brackets. Junk commits generated
 by cvs2svn have been removed, commit references have been mapped into
@@ -14,10 +14,8 @@ EOF
 
 edit
 
-=L edit
-
-tag emptycommit-4 delete
-tag emptycommit-29 delete
+tag emptycommit-4 rename svn-add-src
+tag emptycommit-29 rename svn-ignorecm
 
 # remove generated gitignore
 
