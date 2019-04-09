@@ -19,7 +19,12 @@ tag emptycommit-141 rename svn-reorg
 :1235 setperm 100755 ml-antlr/build.sh
 :1235 setperm 100755 ml-ulex/build.sh
 
-# manually edit for wspace, crashes here
+# edit for beginning whitespace (crashes here)
+# cd ml-lpt-git && rlwrap reposurgeon
+# read .
+# prefer git
+# edit
+# rebuild .
 
 # make gc
 
