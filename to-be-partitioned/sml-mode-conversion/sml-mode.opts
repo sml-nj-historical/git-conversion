@@ -1,0 +1,4 @@
+# Pre-read options for reposurgeon go here.
+branchify sml-mode/trunk sml-mode/releases/*
+
+branchify_map $sml-mode/trunk/$heads/master$ $sml-mode/releases/([^\x2f]+)/$tags/\1$

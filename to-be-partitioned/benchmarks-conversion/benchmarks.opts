@@ -1,0 +1,4 @@
+# Pre-read options for reposurgeon go here.
+branchify benchmarks/trunk benchmarks/releases/*
+
+branchify_map $benchmarks/trunk/$heads/master$ $benchmarks/releases/([^\x2f]+)/$tags/\1$

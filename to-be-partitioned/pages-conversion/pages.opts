@@ -1,0 +1,4 @@
+# Pre-read options for reposurgeon go here.
+branchify pages/trunk pages/branches/*
+
+branchify_map $pages/trunk/$heads/master$ $pages/branches/([^\x2f]+)/$heads/\1$

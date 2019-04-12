@@ -1,0 +1,4 @@
+# Pre-read options for reposurgeon go here.
+branchify lexgen/trunk lexgen/releases/*
+
+branchify_map $lexgen/trunk/$heads/master$ $lexgen/releases/([^\x2f]+)/$tags/\1$

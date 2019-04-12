@@ -1,0 +1,4 @@
+# Pre-read options for reposurgeon go here.
+branchify bugs/trunk bugs/branches/*
+
+branchify_map $bugs/trunk/$heads/master$ $bugs/branches/([^\x2f]+)/$heads/\1$
