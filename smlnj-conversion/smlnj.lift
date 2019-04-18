@@ -4,7 +4,7 @@ Tag-Name: git-conversion
 
 Marks the spot at which this repository was converted from Subversion to git.
 
-[[This repository was converted from Subversion to git on 2019-04-07
+[[This repository was converted from Subversion to git on 2019-04-16
 by Kartik Singhal <ks@cs.uchicago.edu>.  Here and elsewhere, conversion
 notes are enclosed in double square brackets. Junk commits generated
 by cvs2svn have been removed, commit references have been mapped into
@@ -12,6 +12,8 @@ a uniform VCS-independent syntax, and some comments edited into
 summary-plus-continuation form.]]
 EOF
 
-=L edit
+tag /emptycommit-*/ delete
 
-# make gc
+branch root delete
+branch MLRISC delete
+branch smlnj-lib delete

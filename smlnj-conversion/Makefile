@@ -34,13 +34,13 @@
 #
 
 EXTRAS =
-REMOTE_URL = https://smlnj-gforge.cs.uchicago.edu/svn/smlnj
+REMOTE_URL = svn://svn.debian.org/smlnj # unused
 #REMOTE_URL = https://smlnj.googlecode.com/svn/
 # CVS_HOST = smlnj.cvs.sourceforge.net
 #CVS_HOST = cvs.savannah.gnu.org
 # CVS_MODULE = smlnj
 #REMOTE_URL = cvs://$(CVS_HOST)/smlnj\#$(CVS_MODULE)
-READ_OPTIONS = --nobranch
+READ_OPTIONS =
 VERBOSITY = "verbose 1"
 REPOSURGEON = reposurgeon
 
@@ -58,12 +58,19 @@ smlnj-git: smlnj.fi
 	rm -fr smlnj-git; $(REPOSURGEON) 'read <smlnj.fi' 'prefer git' 'rebuild smlnj-git'
 
 # Build the second-stage fast-import stream from the first-stage stream dump
-smlnj.fi: smlnj.svn smlnj.opts smlnj.lift smlnj.map $(EXTRAS)
+smlnj.fi: smlnj.opts smlnj.lift smlnj.map $(EXTRAS)
 	$(REPOSURGEON) $(VERBOSITY) 'script smlnj.opts' "read $(READ_OPTIONS) <smlnj.svn" 'authors read <smlnj.map' 'sourcetype svn' 'prefer git' 'script smlnj.lift' 'legacy write >smlnj.fo' 'write >smlnj.fi'
 
 # Build the first-stage stream dump from the local mirror
-smlnj.svn: smlnj-mirror
-	(cd smlnj-mirror/ >/dev/null; repotool export) >smlnj.svn
+## The repocutter steps need to be done manually on a shell as its backreferences
+## support is messed up.
+smlnj.svn:
+	(cd smlnj-mirror/ >/dev/null; repotool export) \
+	| repocutter pathrename '^trunk/' '' \
+	| repocutter swap \
+	| repocutter pathrename '^branches/([^/]+)/([^/]+)/' 'branches/${2}/${1}/' \
+	| repocutter pathrename '^releases/([^/]+)/([^/]+)/' 'tags/${2}/${1}/' \
+	>smlnj.svn
 
 # Build a local mirror of the remote repository
 smlnj-mirror:
@@ -104,7 +111,7 @@ allcompare: smlnj-mirror smlnj-git
 
 # General cleanup and utility
 clean:
-	rm -fr *~ .rs* smlnj-conversion.tar.gz *.svn *.fi *.fo
+	rm -fr *~ .rs* smlnj-conversion.tar.gz *.fi *.fo
 
 # Bundle up the conversion metadata for shipping
 SOURCES = Makefile smlnj.lift smlnj.map $(EXTRAS)
@@ -126,3 +133,8 @@ gitk: smlnj-git
 # tuned for very large repositories.
 gc: smlnj-git
 	cd smlnj-git; time git -c pack.threads=1 repack -AdF --window=1250 --depth=250
+
+ignorerm:
+	git filter-branch --force --index-filter \
+	'git rm --cached --ignore-unmatch .gitignore' \
+	--prune-empty --tag-name-filter cat -- --all
